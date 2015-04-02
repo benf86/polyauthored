@@ -58,10 +58,21 @@ class User extends BaseUser
     private $points;
 
     /**
-     * @var  boolean
+     * @var boolean
      *
      * @ORM\Column(name="shadowbanned", type="boolean")
      */
+    private $shadowBanned;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\General\Comment", mappedBy="userParent", fetch="EAGER")
+     */
+    private $commentsReceived;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\General\Comment", mappedBy="author", fetch="EAGER")
+     */
+    private $commentsMade;
 
     /**
      * Get id
@@ -216,5 +227,94 @@ class User extends BaseUser
     public function getEntitiesOwning()
     {
         return $this->entitiesOwning;
+    }
+
+    /**
+     * Set shadowBanned
+     *
+     * @param boolean $shadowBanned
+     * @return User
+     */
+    public function setShadowBanned($shadowBanned)
+    {
+        $this->shadowBanned = $shadowBanned;
+
+        return $this;
+    }
+
+    /**
+     * Get shadowBanned
+     *
+     * @return boolean 
+     */
+    public function getShadowBanned()
+    {
+        return $this->shadowBanned;
+    }
+
+    /**
+     * Add commentsReceived
+     *
+     * @param \AppBundle\Entity\General\Comment $commentsReceived
+     * @return User
+     */
+    public function addCommentsReceived(\AppBundle\Entity\General\Comment $commentsReceived)
+    {
+        $this->commentsReceived[] = $commentsReceived;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentsReceived
+     *
+     * @param \AppBundle\Entity\General\Comment $commentsReceived
+     */
+    public function removeCommentsReceived(\AppBundle\Entity\General\Comment $commentsReceived)
+    {
+        $this->commentsReceived->removeElement($commentsReceived);
+    }
+
+    /**
+     * Get commentsReceived
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentsReceived()
+    {
+        return $this->commentsReceived;
+    }
+
+    /**
+     * Add commentsMade
+     *
+     * @param \AppBundle\Entity\General\Comment $commentsMade
+     * @return User
+     */
+    public function addCommentsMade(\AppBundle\Entity\General\Comment $commentsMade)
+    {
+        $this->commentsMade[] = $commentsMade;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentsMade
+     *
+     * @param \AppBundle\Entity\General\Comment $commentsMade
+     */
+    public function removeCommentsMade(\AppBundle\Entity\General\Comment $commentsMade)
+    {
+        $this->commentsMade->removeElement($commentsMade);
+    }
+
+    /**
+     * Get commentsMade
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentsMade()
+    {
+        return $this->commentsMade;
     }
 }

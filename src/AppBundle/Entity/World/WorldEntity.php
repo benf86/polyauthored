@@ -57,6 +57,11 @@ class WorldEntity
      */
     private $owner;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\General\Comment", mappedBy="entityParent", fetch="EAGER")
+     */
+    private $comments;
+
 
     public function __toString()
     {
@@ -209,5 +214,45 @@ class WorldEntity
     public function getOwner()
     {
         return $this->owner;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\General\Comment $comments
+     * @return WorldEntity
+     */
+    public function addComment(\AppBundle\Entity\General\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\General\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\General\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

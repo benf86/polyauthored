@@ -50,6 +50,11 @@ class World
      */
     private $worldEntities;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\General\Comment", mappedBy="worldParent", fetch="EAGER")
+     */
+    private $comments;
+
 
     public function __toString()
     {
@@ -206,5 +211,38 @@ class World
     public function getWorldEntities()
     {
         return $this->worldEntities;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\General\Comment $comments
+     * @return World
+     */
+    public function addComment(\AppBundle\Entity\General\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\General\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\General\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
