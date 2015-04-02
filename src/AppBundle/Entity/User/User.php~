@@ -184,37 +184,4 @@ class User extends BaseUser
     {
         return $this->name;
     }
-
-    /**
-     * Add entitiesOwning
-     *
-     * @param \AppBundle\Entity\World\WorldEntity $entitiesOwning
-     * @return User
-     */
-    public function addEntitiesOwning(\AppBundle\Entity\World\WorldEntity $entitiesOwning)
-    {
-        $this->entitiesOwning[] = $entitiesOwning;
-
-        return $this;
-    }
-
-    /**
-     * Remove entitiesOwning
-     *
-     * @param \AppBundle\Entity\World\WorldEntity $entitiesOwning
-     */
-    public function removeEntitiesOwning(\AppBundle\Entity\World\WorldEntity $entitiesOwning)
-    {
-        $this->entitiesOwning->removeElement($entitiesOwning);
-    }
-
-    /**
-     * Get entitiesOwning
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEntitiesOwning()
-    {
-        return $this->entitiesOwning;
-    }
 }

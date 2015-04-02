@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>World\WorldEntity creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('world_entity') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
