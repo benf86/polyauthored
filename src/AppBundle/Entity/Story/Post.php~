@@ -1,0 +1,183 @@
+<?php
+
+namespace AppBundle\Entity\Story;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Post
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Post
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="points", type="bigint")
+     */
+    private $points;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="synopsis", type="string", length=255)
+     */
+    private $synopsis;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\General\Comment", mappedBy="postParent", fetch="EAGER")
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\General\Keyword", inversedBy="posts", fetch="EAGER")
+     */
+    private $keywords;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="storiesOwning", fetch="EAGER")
+     */
+    private $owner;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="postParents", fetch="EAGER")
+     */
+    private $postChildren;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="postChildren", fetch="EAGER")
+     */
+    private $postParents;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Story", inversedBy="posts", fetch="EAGER")
+     */
+    private $story;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     * @return Post
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer 
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Post
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set synopsis
+     *
+     * @param string $synopsis
+     * @return Post
+     */
+    public function setSynopsis($synopsis)
+    {
+        $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    /**
+     * Get synopsis
+     *
+     * @return string 
+     */
+    public function getSynopsis()
+    {
+        return $this->synopsis;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+}

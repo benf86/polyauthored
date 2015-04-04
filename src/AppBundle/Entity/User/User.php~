@@ -51,6 +51,18 @@ class User extends BaseUser
     private $entitiesOwning;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Story\Story", mappedBy="owner", fetch="EAGER")
+     */
+    private $storiesOwning;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Story\Post", mappedBy="owner", fetch="EAGER")
+     */
+    private $postsOwning;
+
+
+
+    /**
      * @var integer
      * 
      * @ORM\Column(name="points", type="bigint", nullable=true)

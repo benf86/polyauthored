@@ -55,6 +55,11 @@ class World
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Appbundle\Entity\Story\Story", mappedBy="world", fetch="EAGER")
+     */
+    private $stories;
+
 
     public function __toString()
     {

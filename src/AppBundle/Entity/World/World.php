@@ -55,6 +55,11 @@ class World
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Story\Story", mappedBy="world", fetch="EAGER")
+     */
+    private $stories;
+
 
     public function __toString()
     {
@@ -244,5 +249,38 @@ class World
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add stories
+     *
+     * @param \Appbundle\Entity\Story\Story $stories
+     * @return World
+     */
+    public function addStory(\Appbundle\Entity\Story\Story $stories)
+    {
+        $this->stories[] = $stories;
+
+        return $this;
+    }
+
+    /**
+     * Remove stories
+     *
+     * @param \Appbundle\Entity\Story\Story $stories
+     */
+    public function removeStory(\Appbundle\Entity\Story\Story $stories)
+    {
+        $this->stories->removeElement($stories);
+    }
+
+    /**
+     * Get stories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStories()
+    {
+        return $this->stories;
     }
 }

@@ -34,6 +34,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $userAdmin->setEmail('admin@admin.lan');
         $userAdmin->setName('Admin I. Strator');
         $userAdmin->setEnabled(true);
+        $userAdmin->setShadowBanned(false);
         $userAdmin->setRoles(array('ROLE_SUPER_ADMIN'));
 
         $hash = $this->container->get('security.password_encoder')->encodePassword($userAdmin, 'admin');

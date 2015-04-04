@@ -28,6 +28,59 @@ class Comment
      */
     private $points;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\WorldEntity", inversedBy="comments")
+     */
+    private $entityParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\World", inversedBy="comments")
+     */
+    private $worldParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\Post", inversedBy="comments")
+     */
+    private $postParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsReceived")
+     */
+    private $userParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="commentChildren", fetch="EAGER")
+     */
+    private $commentParent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="commentParent", fetch="EAGER")
+     */
+    private $commentChildren;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsMade")
+     */
+    private $author;
+
+    /**
+     * @var  string
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getId();
+    }
 
     /**
      * Get id
@@ -62,49 +115,6 @@ class Comment
         return $this->points;
     }
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\WorldEntity", inversedBy="comments")
-     */
-    private $entityParent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\World", inversedBy="comments")
-     */
-    private $worldParent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsReceived")
-     */
-    private $userParent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
-     */
-    private $parents;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
-     */
-    private $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsMade")
-     */
-    private $author;
-
-    /**
-     * @var  string
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set entityParent
@@ -176,26 +186,26 @@ class Comment
     }
 
     /**
-     * Set parents
+     * Set parent
      *
-     * @param \AppBundle\Entity\General\Comment $parents
+     * @param \AppBundle\Entity\General\Comment $parent
      * @return Comment
      */
-    public function setParents(\AppBundle\Entity\General\Comment $parents = null)
+    public function setParent(\AppBundle\Entity\General\Comment $parent = null)
     {
-        $this->parents = $parents;
+        $this->parent = $parent;
 
         return $this;
     }
 
     /**
-     * Get parents
+     * Get parent
      *
      * @return \AppBundle\Entity\General\Comment 
      */
-    public function getParents()
+    public function getParent()
     {
-        return $this->parents;
+        return $this->parent;
     }
 
     /**
@@ -252,5 +262,28 @@ class Comment
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

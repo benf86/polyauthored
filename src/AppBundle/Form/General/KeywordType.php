@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\General;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class KeywordType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,9 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('points')
-            ->add('shadowBanned')
-            ->add('worldsModerating')
+            ->add('keyword')
+            ->add('stories')
+            ->add('posts')
         ;
     }
     
@@ -28,7 +27,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\User'
+            'data_class' => 'AppBundle\Entity\General\Keyword'
         ));
     }
 
@@ -37,6 +36,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_user_user';
+        return 'appbundle_general_keyword';
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\Story;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class PostType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,15 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
             ->add('points')
-            ->add('shadowBanned')
-            ->add('worldsModerating')
+            ->add('content')
+            ->add('synopsis')
+            ->add('title')
+            ->add('keywords')
+            ->add('owner')
+            ->add('postChildren')
+            ->add('postParents')
+            ->add('story')
         ;
     }
     
@@ -28,7 +33,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\User'
+            'data_class' => 'AppBundle\Entity\Story\Post'
         ));
     }
 
@@ -37,6 +42,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_user_user';
+        return 'appbundle_story_post';
     }
 }

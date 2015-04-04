@@ -24,37 +24,42 @@ class Comment
     /**
      * @var integer
      *
-     * @ORM\Column(name="points", type="bigint")
+     * @ORM\Column(name="points", type="bigint", nullable=true)
      */
     private $points;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\WorldEntity", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\WorldEntity", inversedBy="comments", fetch="EAGER")
      */
     private $entityParent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\World", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\World\World", inversedBy="comments", fetch="EAGER")
      */
     private $worldParent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsReceived")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Story\Post", inversedBy="comments", fetch="EAGER")
+     */
+    private $postParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsReceived", fetch="EAGER")
      */
     private $userParent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="commentChildren", fetch="EAGER")
      */
-    private $parent;
+    private $commentParent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="commentParent", fetch="EAGER")
      */
-    private $children;
+    private $commentChildren;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsMade")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="commentsMade", fetch="EAGER")
      */
     private $author;
 
@@ -280,5 +285,84 @@ class Comment
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set postParent
+     *
+     * @param \AppBundle\Entity\Story\Post $postParent
+     * @return Comment
+     */
+    public function setPostParent(\AppBundle\Entity\Story\Post $postParent = null)
+    {
+        $this->postParent = $postParent;
+
+        return $this;
+    }
+
+    /**
+     * Get postParent
+     *
+     * @return \AppBundle\Entity\Story\Post 
+     */
+    public function getPostParent()
+    {
+        return $this->postParent;
+    }
+
+    /**
+     * Set commentParent
+     *
+     * @param \AppBundle\Entity\General\Comment $commentParent
+     * @return Comment
+     */
+    public function setCommentParent(\AppBundle\Entity\General\Comment $commentParent = null)
+    {
+        $this->commentParent = $commentParent;
+
+        return $this;
+    }
+
+    /**
+     * Get commentParent
+     *
+     * @return \AppBundle\Entity\General\Comment 
+     */
+    public function getCommentParent()
+    {
+        return $this->commentParent;
+    }
+
+    /**
+     * Add commentChildren
+     *
+     * @param \AppBundle\Entity\General\Comment $commentChildren
+     * @return Comment
+     */
+    public function addCommentChild(\AppBundle\Entity\General\Comment $commentChildren)
+    {
+        $this->commentChildren[] = $commentChildren;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentChildren
+     *
+     * @param \AppBundle\Entity\General\Comment $commentChildren
+     */
+    public function removeCommentChild(\AppBundle\Entity\General\Comment $commentChildren)
+    {
+        $this->commentChildren->removeElement($commentChildren);
+    }
+
+    /**
+     * Get commentChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentChildren()
+    {
+        return $this->commentChildren;
     }
 }

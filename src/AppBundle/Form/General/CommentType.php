@@ -16,12 +16,13 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('points')
+            ->add('content')
             ->add('entityParent')
             ->add('worldParent')
+            ->add('postParent')
             ->add('userParent')
-            ->add('parent')
+            ->add('commentParent')
             ->add('author')
-            ->add('content')
         ;
     }
     

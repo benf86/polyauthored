@@ -51,6 +51,16 @@ class User extends BaseUser
     private $entitiesOwning;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Story\Story", mappedBy="owner", fetch="EAGER")
+     */
+    private $storiesOwning;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Story\Post", mappedBy="owner", fetch="EAGER")
+     */
+    private $postsOwning;
+
+    /**
      * @var integer
      * 
      * @ORM\Column(name="points", type="bigint", nullable=true)
@@ -60,7 +70,7 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="shadowbanned", type="boolean")
+     * @ORM\Column(name="shadowbanned", type="boolean", options={"default"=false})
      */
     private $shadowBanned;
 
@@ -316,5 +326,71 @@ class User extends BaseUser
     public function getCommentsMade()
     {
         return $this->commentsMade;
+    }
+
+    /**
+     * Add storiesOwning
+     *
+     * @param \AppBundle\Entity\Story\Story $storiesOwning
+     * @return User
+     */
+    public function addStoriesOwning(\AppBundle\Entity\Story\Story $storiesOwning)
+    {
+        $this->storiesOwning[] = $storiesOwning;
+
+        return $this;
+    }
+
+    /**
+     * Remove storiesOwning
+     *
+     * @param \AppBundle\Entity\Story\Story $storiesOwning
+     */
+    public function removeStoriesOwning(\AppBundle\Entity\Story\Story $storiesOwning)
+    {
+        $this->storiesOwning->removeElement($storiesOwning);
+    }
+
+    /**
+     * Get storiesOwning
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStoriesOwning()
+    {
+        return $this->storiesOwning;
+    }
+
+    /**
+     * Add postsOwning
+     *
+     * @param \AppBundle\Entity\Story\Post $postsOwning
+     * @return User
+     */
+    public function addPostsOwning(\AppBundle\Entity\Story\Post $postsOwning)
+    {
+        $this->postsOwning[] = $postsOwning;
+
+        return $this;
+    }
+
+    /**
+     * Remove postsOwning
+     *
+     * @param \AppBundle\Entity\Story\Post $postsOwning
+     */
+    public function removePostsOwning(\AppBundle\Entity\Story\Post $postsOwning)
+    {
+        $this->postsOwning->removeElement($postsOwning);
+    }
+
+    /**
+     * Get postsOwning
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostsOwning()
+    {
+        return $this->postsOwning;
     }
 }

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>General\Comment</h1>
+    <h1>Story\Story</h1>
 
     <table class="record_properties">
         <tbody>
@@ -14,6 +14,10 @@
                 <td>{{ entity.points }}</td>
             </tr>
             <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
                 <th>Content</th>
                 <td>{{ entity.content }}</td>
             </tr>
@@ -22,12 +26,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('comment') }}">
+        <a href="{{ path('story') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('comment_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('story_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

@@ -18,8 +18,7 @@ class WorldEntityType extends AbstractType
             ->add('type')
             ->add('content')
             ->add('approved', 'checkbox', array("required" => false))
-            ->add('world', 'entity', array("required" => true,
-                                           "class" => "AppBundle:World\World"))
+            ->add('world')
             ->add('name')
             ->add('owner')
         ;
