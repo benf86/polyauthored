@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Keyword
  *
- * @ORM\Table()
+ * @ORM\Table(name="keywords")
  * @ORM\Entity
  */
 class Keyword

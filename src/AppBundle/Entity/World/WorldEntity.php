@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * WorldEntity
  *
- * @ORM\Table(name="worldEntities")
+ * @ORM\Table(name="world_entities")
  * @ORM\Entity
  */
 class WorldEntity

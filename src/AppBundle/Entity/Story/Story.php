@@ -5,9 +5,9 @@ namespace AppBundle\Entity\Story;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Story:Story
+ * Story
  *
- * @ORM\Table()
+ * @ORM\Table(name="stories")
  * @ORM\Entity
  */
 class Story

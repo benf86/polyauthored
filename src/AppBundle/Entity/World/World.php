@@ -5,7 +5,7 @@ namespace AppBundle\Entity\World;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * World:World
+ * World
  *
  * @ORM\Table(name="worlds")
  * @ORM\Entity
