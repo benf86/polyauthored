@@ -4,6 +4,9 @@ namespace AppBundle\Entity\Story;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use AppBundle\Entity\User\User;
+use AppBundle\Entity\World\World;
+
 /**
  * Story
  *
@@ -22,6 +25,13 @@ class Story
     private $id;
 
     /**
+     * @var  boolean
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="points", type="bigint", nullable=true)
@@ -38,7 +48,7 @@ class Story
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
@@ -153,11 +163,17 @@ class Story
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($owner=null, World $world=null)
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
+        if ($owner && $world)
+        {
+            $this->setOwner($owner);
+            $this->setWorld($world);
+        }
+
     }
 
     /**
@@ -303,5 +319,28 @@ class Story
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Story
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

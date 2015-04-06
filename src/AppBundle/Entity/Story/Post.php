@@ -22,6 +22,13 @@ class Post
     private $id;
 
     /**
+     * @var  boolean
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="points", type="bigint", nullable=true)
@@ -372,5 +379,28 @@ class Post
     public function getStory()
     {
         return $this->story;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Post
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

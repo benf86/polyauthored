@@ -21,6 +21,7 @@ class WorldEntityType extends AbstractType
             ->add('world')
             ->add('name')
             ->add('owner')
+            ->add('published')
         ;
     }
     

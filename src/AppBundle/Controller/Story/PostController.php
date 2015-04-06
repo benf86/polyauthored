@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Story\Post;
 use AppBundle\Form\Story\PostType;
+use AppBundle\Entity\Story\Story;
+use AppBundle\Entity\World\World;
 
 /**
  * Story\Post controller.
@@ -17,7 +19,6 @@ use AppBundle\Form\Story\PostType;
  */
 class PostController extends Controller
 {
-
     /**
      * Lists all Story\Post entities.
      *
@@ -49,6 +50,7 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $entity->setOwner($this->container->get('security.context')->getToken()->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -84,14 +86,50 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Story\Post entity.
      *
-     * @Route("/new", name="post_new")
+     * @Route("/new/{story}/{world}", defaults={"story" = "new", "world" = "new"}, name="post_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($story, $world)
     {
+        /**
+         * Create new Story and/or world if new
+         */
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        if ($world != 'new' && $em->getRepository('AppBundle:World\World')->find($world)) 
+        {
+            $world = $em->getRepository('AppBundle:World\World')->find($world);
+        } else { 
+            $world = new World($user);
+            $world->setName($user->getName() . '\'s World ' . rand());
+            $world->setPublished(false);
+            $em->persist($world);
+            $em->flush();
+        }
+
+        if ($story != 'new' && $em->getRepository('AppBundle:Story\Story')->find($story))
+        {
+            $story = $em->getRepository('AppBundle:Story\Story')->find($story);
+        } else {
+            $story = new Story($user, $world);
+            $story->setTitle($user->getName() . '\'s Story ' . rand());
+            $story->setPublished(false);
+            $story->setWorld($world);
+            $em->persist($story);
+            $em->flush();
+        }
+        
         $entity = new Post();
-        $form   = $this->createCreateForm($entity);
+        $entity->setStory($story);
+        $entity->setPublished(false);
+        $entity->setContent('');
+        $entity->setSynopsis('');
+        $entity->setTitle('');
+        $entity->setOwner($user);
+        $em->persist($entity);
+        $em->flush();
+        $form   = $this->createEditForm($entity);
 
         return array(
             'entity' => $entity,

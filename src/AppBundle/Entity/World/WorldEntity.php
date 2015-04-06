@@ -22,6 +22,13 @@ class WorldEntity
     private $id;
 
     /**
+     * @var  boolean
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
@@ -254,5 +261,28 @@ class WorldEntity
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return WorldEntity
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

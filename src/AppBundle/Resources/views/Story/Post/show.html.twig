@@ -25,6 +25,11 @@
                 <th>Title</th>
                 <td>{{ entity.title }}</td>
             </tr>
+            <tr>
+                <th>Owner</th>
+                <td>{{ entity.owner.name }}</td>
+            </tr>
+{{dump(entity)}}
         </tbody>
     </table>
 

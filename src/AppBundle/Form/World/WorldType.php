@@ -19,6 +19,7 @@ class WorldType extends AbstractType
             ->add('description')
             ->add('moderators')
             ->add('owner')
+            ->add('published')
         ;
     }
     

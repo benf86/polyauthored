@@ -4,6 +4,8 @@ namespace AppBundle\Entity\World;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use AppBundle\Entity\User\User;
+
 /**
  * World
  *
@@ -22,6 +24,13 @@ class World
     private $id;
 
     /**
+     * @var  boolean
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User\User", inversedBy="worldsModerating", fetch="EAGER")
      */
     private $moderators;
@@ -34,14 +43,14 @@ class World
     /**
      * @var string
      *
-     * @ORM\Column(name="name", unique=true)
+     * @ORM\Column(name="name", unique=true, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description")
+     * @ORM\Column(name="description", nullable=true)
      */
     private $description;
 
@@ -60,7 +69,6 @@ class World
      */
     private $stories;
 
-
     public function __toString()
     {
         return $this->getName();
@@ -78,9 +86,13 @@ class World
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(User $owner=null)
     {
         $this->moderators = new \Doctrine\Common\Collections\ArrayCollection();
+        if ($owner)
+        {
+            $this->setOwner($owner);
+        }
     }
 
     /**
@@ -282,5 +294,28 @@ class World
     public function getStories()
     {
         return $this->stories;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return World
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

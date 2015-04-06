@@ -21,6 +21,7 @@ class StoryType extends AbstractType
             ->add('world')
             ->add('keywords')
             ->add('owner')
+            ->add('published')
         ;
     }
     
