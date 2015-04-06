@@ -36,6 +36,23 @@ class StoryController extends Controller
         );
     }
     /**
+     * Lists Story\Story entities on the front page
+     *
+     * @Route("/", name="storyHome")
+     * @Method("GET")
+     * @Template()
+     */
+    public function storyHomeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:Story\Story')->findAll();
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+    /**
      * Creates a new Story\Story entity.
      *
      * @Route("/", name="story_create")

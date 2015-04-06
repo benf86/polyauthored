@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+<table>
+	{% for story in entities %}
+		<tr>
+			<td>{{story.points}}</td>
+			<td><a href="{{path('story_show', {'id': story.id})}}">{{story.title}}</a></td>
+			<td>by <a href="{{path('user_show', {'id': story.owner.id})}}">{{story.owner}}</a></td>
+			<td>in <a href="{{path('world_show', {'id': story.world.id})}}">{{story.world.name}}</a></td>
+		</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

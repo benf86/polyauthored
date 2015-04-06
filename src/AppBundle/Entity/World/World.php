@@ -34,7 +34,7 @@ class World
     /**
      * @var string
      *
-     * @ORM\Column(name="name")
+     * @ORM\Column(name="name", unique=true)
      */
     private $name;
 

@@ -24,7 +24,7 @@ class Keyword
     /**
      * @var string
      *
-     * @ORM\Column(name="keyword", type="string", length=255)
+     * @ORM\Column(name="keyword", type="string", length=255, unique=true)
      */
     private $keyword;
 
